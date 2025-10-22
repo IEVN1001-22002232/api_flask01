@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block contenido %}
+
+    <h1>DISTANCIA ENTRE DOS PUNTOS</h1>
+
+    
+    <p class="mb-4">
+        Para el siguiente problema se te pide encontrar la distancia entre dos puntos según el ejemplo que se te proporciona:
+      </p>
+      
+      <pre class="bg-gray-100 p-4 rounded-lg mb-6">
+      FÓRMULA DE LA DISTANCIA = √((X₂ - X₁)² + (Y₂ - Y₁)²)
+      √((5 - (-4))² + (-2 - 3)²)
+      √(9² + (-5)²)
+      √(81 + 25)
+      √106 ≈ 10.30
+      </pre>
+      
+      
+
+      <form action="/dis" method="post">
+
+        <div class="mb-3">
+            <label for="X2" class="form-label">X2:</label>
+            <input id="X2" type="text" class="form-control" id="X2" name="X2" placeholder="X2">
+        </div>
+
+        <div class="mb-3">
+            <label for="X1" class="form-label">X1:</label>
+            <input id="X1" type="text" class="form-control" id="X1" name="X1" placeholder="X1">
+        </div>
+
+        <div class="mb-3">
+            <label for="Y2" class="form-label">Y2:</label>
+            <input id="Y2" type="text" class="form-control" id="Y2" name="Y2" placeholder="Y2">
+        </div>
+
+        <div class="mb-3">
+            <label for="Y1" class="form-label">Y1:</label>
+            <input id="Y1" type="text" class="form-control" id="Y1" name="Y1" placeholder="Y1">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">CALCULAR</button>
+
+      </form>
+      
+      
+{% endblock %}
