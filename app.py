@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,dist
+from flask import Flask, render_template,request,jsonify
 import math
 
 app = Flask(__name__)
@@ -25,7 +25,7 @@ def resultado():
     return " LA MULTIPLICACION DE {} Y {} ES {}".format(n1,n2,int(n1)*int(n2))
 
 
-@app.route("/distancia")
+""" @app.route("/distancia")
 def distancia():
     return render_template('distancia.html')
 
@@ -40,8 +40,34 @@ def dist():
     distancia = math.sqrt((X2 - X1) ** 2 + (Y2 - Y1) ** 2)
 
     return "LA DISTANCIA ES sqrt(({} - {}) ** 2 + ({} - {}) ** 2) = {}".format(
-        X2, X1, Y2, Y1, distancia)
+        X2, X1, Y2, Y1, distancia) """
 
+@app.route("/distancia")
+def distancia():
+
+    if not request.args:
+        return render_template("distancia.html")
+
+    
+    X2 = float(request.args.get("X2"))
+    X1 = float(request.args.get("X1"))
+    Y2 = float(request.args.get("Y2"))
+    Y1 = float(request.args.get("Y1"))
+
+    distancia = math.sqrt((X2 - X1)**2 + (Y2 - Y1)**2)
+    formula = f"√(({X2} - {X1})² + ({Y2} - {Y1})²)"
+    resultado = round(distancia, 2)
+
+    return jsonify({
+        "formula": formula,
+        "resultado": resultado
+    })
+
+
+@app.route("/figuras", methods=['GET','POST'])
+def figuras():
+    return render_template('figuras.html')
+    
 
 
 

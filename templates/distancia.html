@@ -1,49 +1,46 @@
 {% extends "layout.html" %}
 {% block contenido %}
 
-    <h1>DISTANCIA ENTRE DOS PUNTOS</h1>
+<h1>DISTANCIA ENTRE DOS PUNTOS</h1>
 
-    
-    <p class="mb-4">
-        Para el siguiente problema se te pide encontrar la distancia entre dos puntos según el ejemplo que se te proporciona:
-      </p>
-      
-      <pre class="bg-gray-100 p-4 rounded-lg mb-6">
-      FÓRMULA DE LA DISTANCIA = √((X₂ - X₁)² + (Y₂ - Y₁)²)
-      √((5 - (-4))² + (-2 - 3)²)
-      √(9² + (-5)²)
-      √(81 + 25)
-      √106 ≈ 10.30
-      </pre>
-      
-      
+<p>FÓRMULA: √((X₂ - X₁)² + (Y₂ - Y₁)²)</p>
 
-      <form action="/dis" method="post">
+<form id="formDistancia">
+  <label>X2:</label>
+  <input type="number" name="X2" step="any" required>
 
-        <div class="mb-3">
-            <label for="X2" class="form-label">X2:</label>
-            <input id="X2" type="text" class="form-control" id="X2" name="X2" placeholder="X2">
-        </div>
+  <label>X1:</label>
+  <input type="number" name="X1" step="any" required>
 
-        <div class="mb-3">
-            <label for="X1" class="form-label">X1:</label>
-            <input id="X1" type="text" class="form-control" id="X1" name="X1" placeholder="X1">
-        </div>
+  <label>Y2:</label>
+  <input type="number" name="Y2" step="any" required>
 
-        <div class="mb-3">
-            <label for="Y2" class="form-label">Y2:</label>
-            <input id="Y2" type="text" class="form-control" id="Y2" name="Y2" placeholder="Y2">
-        </div>
+  <label>Y1:</label>
+  <input type="number" name="Y1" step="any" required>
 
-        <div class="mb-3">
-            <label for="Y1" class="form-label">Y1:</label>
-            <input id="Y1" type="text" class="form-control" id="Y1" name="Y1" placeholder="Y1">
-        </div>
+  <button type="submit">CALCULAR</button>
+</form>
 
+<h3 id="formula"></h3>
+<h2 id="resultado"></h2>
 
-        <button type="submit" class="btn btn-primary">CALCULAR</button>
+<script>
+  document.getElementById("formDistancia").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-      </form>
-      
-      
+    const X2 = document.querySelector('[name="X2"]').value;
+    const X1 = document.querySelector('[name="X1"]').value;
+    const Y2 = document.querySelector('[name="Y2"]').value;
+    const Y1 = document.querySelector('[name="Y1"]').value;
+
+   
+    const res = await fetch(`/distancia?X2=${X2}&X1=${X1}&Y2=${Y2}&Y1=${Y1}`);
+    const data = await res.json();
+
+   
+    document.getElementById("formula").innerText = data.formula;
+    document.getElementById("resultado").innerText = `Distancia = ${data.resultado}`;
+  });
+</script>
+
 {% endblock %}

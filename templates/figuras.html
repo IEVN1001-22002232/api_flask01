@@ -1,0 +1,27 @@
+
+
+{% extends "layout.html" %}
+{% block contenido %}
+
+
+{% import "_macros.html" as macros %}
+
+    <h1>FIGURAS GEOMETRICAS</h1>
+    <form action="/figuras" method="post">
+
+    {{macros.campo1('lado','Lado del cuadrado')}}
+
+    {{macros.campo1('base','Base del triangulo',"number")}}
+
+    {{macros.campo1('altura','Altura del triangulo', 'password')}}
+
+    {{macros.campo1('radio','Radio del circulo')}}
+
+        <button type="submit" class="btn btn-primary">CALCULAR</button>
+
+
+
+    </form>
+    
+
+{% endblock %}
