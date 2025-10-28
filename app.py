@@ -42,34 +42,60 @@ def dist():
     return "LA DISTANCIA ES sqrt(({} - {}) ** 2 + ({} - {}) ** 2) = {}".format(
         X2, X1, Y2, Y1, distancia) """
 
-@app.route("/distancia")
+@app.route('/distancia', methods=['GET'])
 def distancia():
-
+   
     if not request.args:
-        return render_template("distancia.html")
+        return render_template('distancia.html')
 
-    
     X2 = float(request.args.get("X2"))
     X1 = float(request.args.get("X1"))
     Y2 = float(request.args.get("Y2"))
     Y1 = float(request.args.get("Y1"))
 
+   
     distancia = math.sqrt((X2 - X1)**2 + (Y2 - Y1)**2)
-    formula = f"√(({X2} - {X1})² + ({Y2} - {Y1})²)"
     resultado = round(distancia, 2)
 
-    return jsonify({
-        "formula": formula,
-        "resultado": resultado
-    })
+   
+    return render_template('distancia.html', resultado=resultado)
 
 
-@app.route("/figuras", methods=['GET','POST'])
+
+@app.route("/figuras", methods=["GET", "POST"])
 def figuras():
-    return render_template('figuras.html')
+    AREA = request.form.get("AREA")
+    RESULTADO = ""
+
+    if request.method == "POST":
+        if AREA == "CUADRADO":
+            LADO = float(request.form.get("LADO", 0))
+            RESULTADO = LADO * LADO
+
+        elif AREA == "TRIANGULO":
+            BASE = float(request.form.get("BASE", 0))
+            ALTURA = float(request.form.get("ALTURA", 0))
+            RESULTADO = (BASE * ALTURA) / 2
+
+        elif AREA == "CIRCULO":
+            RADIO = float(request.form.get("RADIO", 0))
+            RESULTADO = math.pi * (RADIO ** 2)
+
+        elif AREA == "RECTANGULO":
+            BASE = float(request.form.get("BASE", 0))
+            ALTURA = float(request.form.get("ALTURA", 0))
+            RESULTADO = BASE * ALTURA
+
+        elif AREA == "PENTAGONO":
+            PERIMETRO = float(request.form.get("PERIMETRO", 0))
+            APOTEMA = float(request.form.get("APOTEMA", 0))
+            RESULTADO = (PERIMETRO * APOTEMA) / 2
+
+    return render_template("figuras.html", AREA=AREA, RESULTADO=RESULTADO)
+
+
+
     
-
-
 
 @app.route('/hola')
 def func():
